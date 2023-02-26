@@ -978,7 +978,7 @@
               "key_code": "right_arrow",
               "modifiers": [
                 "shift",
-                "control"
+                "command"
               ]
             },
             {

@@ -169,7 +169,7 @@ def misc(unless_emacs)
         "modifiers" => Karabiner.from_modifiers(["control"], %w[caps_lock]),
       },
       "to" => [
-        { "key_code" => "right_arrow", "modifiers" => ["shift", "control"] },
+        { "key_code" => "right_arrow", "modifiers" => ["shift", "command"] },
         { "key_code" => "x", "modifiers" => "command" },
         Karabiner.set_variable("C-spacebar", 0)
       ],
