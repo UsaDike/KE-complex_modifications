@@ -17,15 +17,12 @@ def main
 
     "rules" => [
       "description" => "Emacs-like mark & region (v1)",
-      "manipulators" => control_keys(unless_emacs) + option_keys(unless_emacs)
+      "manipulators" => control_keys(unless_emacs) + option_keys(unless_emacs) + misc(unless_emacs)
     ]
   )
 end
 
 def control_keys(unless_emacs)
-  if_terminal = Karabiner.frontmost_application_if(["terminal"])
-  unless_terminal = Karabiner.frontmost_application_unless(["terminal"])
-    
   [
     {
       "type" => "basic",
@@ -121,15 +118,6 @@ def control_keys(unless_emacs)
       "to" => [{ "key_code" => "v", "modifiers" => "command" }],
       "conditions" => [unless_emacs],
     },
-    { # Not mark region
-      "type" => "basic",
-      "from" => {
-        "key_code" => "slash",
-        "modifiers" => Karabiner.from_modifiers(["control"], %w[caps_lock]),
-      },
-      "to" => [{ "key_code" => "z", "modifiers" => "command" }],
-      "conditions" => [unless_emacs],
-    },                  
     {
       "type" => "basic",
       "from" => {
@@ -156,11 +144,6 @@ def control_keys(unless_emacs)
 end
 
 def option_keys(unless_emacs)
-  if_jetbrains = Karabiner.frontmost_application_if(["jetbrains_ide"])
-  unless_jetbrains = Karabiner.frontmost_application_unless(["jetbrains_ide"])
-  if_browser = Karabiner.frontmost_application_if(["browser"])
-  unless_browser = Karabiner.frontmost_application_unless(["browser"])
-  
   [
     {
       "type" => "basic",
@@ -172,6 +155,33 @@ def option_keys(unless_emacs)
         { "key_code" => "c", "modifiers" => ["command"] },
         Karabiner.set_variable("C-spacebar", 0)
       ],
+      "conditions" => [unless_emacs],
+    }
+  ]
+end
+
+def misc(unless_emacs)
+  [
+    { # I don't know why but ctrl+k becomes dysfunctional without this
+      "type" => "basic",
+      "from" => {
+        "key_code" => "k",
+        "modifiers" => Karabiner.from_modifiers(["control"], %w[caps_lock]),
+      },
+      "to" => [
+        { "key_code" => "right_arrow", "modifiers" => ["shift", "control"] },
+        { "key_code" => "x", "modifiers" => "command" },
+        Karabiner.set_variable("C-spacebar", 0)
+      ],
+      "conditions" => [unless_emacs],
+    },
+    { # Undo
+      "type" => "basic",
+      "from" => {
+        "key_code" => "slash",
+        "modifiers" => Karabiner.from_modifiers(["control"], %w[caps_lock]),
+      },
+      "to" => [{ "key_code" => "z", "modifiers" => "command" }],
       "conditions" => [unless_emacs],
     }
   ]
