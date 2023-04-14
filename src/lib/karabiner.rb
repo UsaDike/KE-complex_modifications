@@ -56,6 +56,7 @@ module Karabiner
       '^com\.microsoft\.Excel$',
       '^com\.microsoft\.Powerpoint$',
       '^com\.microsoft\.Word$',
+      "^com\.microsoft\.Outlook$",
     ],
 
     :remote_desktop => [
